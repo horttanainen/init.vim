@@ -22,13 +22,15 @@ set history=500
 " Code style ===================================================================
 set autoindent
 set expandtab
-set shiftwidth=2
-set tabstop=2
+set shiftwidth=4
+set tabstop=4
 
 " Syntax and color =============================================================
 
 " Turn on color syntax highlighting
 syntax on
+
+set encoding=utf8
 
 " Backup and saving ============================================================
 
@@ -46,13 +48,19 @@ let g:mapleader = ","
 inoremap jk <esc>
 
 " Open vimrc in a vertical split for quick edit
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>ev :vsplit ~/.vim_runtime/vimrc<cr>
 
 " Source vimrc file wihtout closing vim
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
 " Fast saving
 nnoremap <leader>w :w!<cr>
+
+" Use hjkl to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
 
 " Unlearning section ===========================================================
 
