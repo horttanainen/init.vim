@@ -19,6 +19,9 @@ set colorcolumn=81
 " How many lines vim remembers
 set history=500
 
+" Keep cursor line in the middle of the screen when scrolling
+set so=999
+
 " Code style ===================================================================
 set autoindent
 set expandtab
