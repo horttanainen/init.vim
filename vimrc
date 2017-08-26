@@ -1,21 +1,6 @@
 execute pathogen#infect()
 
-" Automatic stuff ==============================================================
-
-" Show absolute line numbers when vim is not focused
-autocmd FocusLost * :set number
-autocmd FocusGained * :set relativenumber
-
-" Show absolute line numbers when in insert mode
-autocmd InsertEnter * :set number
-autocmd InsertLeave * :set relativenumber
-
-" Jump to the last position when reopening a file
-au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
-      \| exe "normal! g'\"" | endif
-
 " Line related stuff =========================================================== 
-set relativenumber
 
 " Highlight column
 set colorcolumn=81
@@ -26,22 +11,39 @@ set history=500
 " Keep cursor line in the middle of the screen when scrolling
 set so=999
 
+" Automatic stuff ==============================================================
+
+" Show absolute line numbers when vim is not focused
+au FocusLost * :set number
+au FocusGained * :set relativenumber
+
+" Show absolute line numbers when in insert mode
+au InsertEnter * :set number
+au InsertLeave * :set relativenumber
+
+" Jump to the last position when reopening a file
+au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+      \| exe "normal! g'\"" | endif
+
 " Code style ===================================================================
 set autoindent
+set smartindent
 set expandtab
 set shiftwidth=2
 set tabstop=2
+set shiftround
 
 " Syntax and color =============================================================
 
 " Turn on color syntax highlighting
-syntax on
+syntax on 
+
+filetype plugin indent on
 
 set encoding=utf8
 
 " Backup and saving ============================================================
 
-" Turn backup off
 set nobackup
 set nowb
 set noswapfile
@@ -69,6 +71,10 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
+" Tabs
+map <leader>tn :tabnew<cr>
+map <leader>tc :tabclose<cr>
+
 " Unlearning section ===========================================================
 
 inoremap <esc> <nop>
@@ -78,7 +84,7 @@ inoremap <down> <nop>
 inoremap <left> <nop> 
 inoremap <right> <nop> 
 
-" => Nerd Tree =================================================================
+" Nerd Tree =================================================================
 
 let g:NERDTreeWinPos = "right"
 let NERDTreeShowHidden=0
@@ -87,3 +93,12 @@ map <leader>nn :NERDTreeToggle<cr>
 map <leader>nb :NERDTreeFromBookmark<Space>
 map <leader>nf :NERDTreeFind<cr>
 
+" Syntastic ====================================================================
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
