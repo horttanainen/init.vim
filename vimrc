@@ -6,7 +6,7 @@ execute pathogen#infect()
 set colorcolumn=81
 
 " How many lines vim remembers
-set history=500
+set history=1000
 
 " Keep cursor line in the middle of the screen when scrolling
 set so=999
@@ -28,12 +28,16 @@ au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
 " Code style ===================================================================
 set autoindent
 set smartindent
+set smartcase
+set smarttab
+
 set expandtab
 set shiftwidth=2
 set tabstop=2
+
 set shiftround
 
-" Syntax and color =============================================================
+" Syntax, color and highligthing =============================================================
 
 " Turn on color syntax highlighting
 syntax on 
@@ -41,6 +45,20 @@ syntax on
 filetype plugin indent on
 
 set encoding=utf8
+
+set t_Co=256
+
+set incsearch
+
+" Menus =======================================================
+
+set completeopt=menuone,menu,longest
+
+set wildignore+=.git
+set wildmode=longest,list,full
+set wildmenu
+
+set cmdheight=1
 
 " Backup and saving ============================================================
 
@@ -108,3 +126,8 @@ let g:syntastic_check_on_wq = 0
 au FileType haskell nnoremap <buffer> <leader>q :HdevtoolsType<CR>
 au FileType haskell nnoremap <buffer> <leader>w :HdevtoolsInfo<CR>
 au FileType haskell nnoremap <buffer> <silent> <leader>e :HdevtoolsClear<CR>
+
+" Supertab =====================================================================
+
+let g:haskellmode_completion_ghc = 1
+autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
