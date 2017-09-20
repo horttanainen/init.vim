@@ -125,3 +125,10 @@ let g:syntastic_check_on_wq = 0
 
 let g:haskellmode_completion_ghc = 1
 autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+
+" ghcmod-vim =====================================================
+
+map <silent> <leader>w :GhcModTypeInsert<CR>
+map <silent> <leader>s :GhcModSplitFunCase<CR>
+map <silent> <leader>q :GhcModType<CR>
+map <silent> <leader>e :GhcModTypeClear<CR>
