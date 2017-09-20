@@ -40,9 +40,8 @@ set tabstop=2
 
 set shiftround
 
-" Syntax, color and highligthing =============================================================
+" Syntax, color and highligthing ===============================================
 
-" Turn on color syntax highlighting
 syntax on 
 
 filetype plugin indent on
@@ -131,7 +130,7 @@ autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
 " ghcmod-vim =====================================================
 
-map <silent> <leader>w :GhcModTypeInsert<CR>
-map <silent> <leader>s :GhcModSplitFunCase<CR>
-map <silent> <leader>q :GhcModType<CR>
-map <silent> <leader>e :GhcModTypeClear<CR>
+map <silent> tw :GhcModTypeInsert<CR>
+map <silent> ts :GhcModSplitFunCase<CR>
+map <silent> tq :GhcModType<CR>
+map <silent> te :GhcModTypeClear<CR>
