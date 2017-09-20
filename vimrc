@@ -11,15 +11,18 @@ set history=500
 " Keep cursor line in the middle of the screen when scrolling
 set so=999
 
+set number
+set rnu
+
 " Automatic stuff ==============================================================
 
 " Show absolute line numbers when vim is not focused
-au FocusLost * :set number
-au FocusGained * :set relativenumber
+" au FocusLost * :set nornu
+" au FocusGained * :set rnu
 
 " Show absolute line numbers when in insert mode
-au InsertEnter * :set number
-au InsertLeave * :set relativenumber
+autocmd InsertEnter * :set nornu
+autocmd InsertLeave * :set rnu
 
 " Jump to the last position when reopening a file
 au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
@@ -57,7 +60,7 @@ let g:mapleader = ","
 inoremap jk <esc>
 
 " Open vimrc in a vertical split for quick edit
-nnoremap <leader>ev :vsplit ~/.vim_runtime/vimrc<cr>
+nnoremap <leader>ev :vsplit ~/.vim/vimrc<cr>
 
 " Source vimrc file wihtout closing vim
 nnoremap <leader>sv :source $MYVIMRC<cr>
