@@ -131,3 +131,7 @@ au FileType haskell nnoremap <buffer> <silent> <leader>e :HdevtoolsClear<CR>
 
 let g:haskellmode_completion_ghc = 1
 autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+
+" Neocomplete ==========================================================
+
+let g:neocomplete#enable_at_startup = 1
