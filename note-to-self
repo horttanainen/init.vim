@@ -1,0 +1,9 @@
+hdevtools hlint and ghc-mod need to be installed
+all of these need to be also added to the PATH
+
+ghc needs to be globally installed by running stack setup outside a project
+
+Thanks to Yawar Amin for this tip:
+
+> Cabal error: The program 'ghc' version >=6.4 is required but it could not be found.
+... try running killall hdevtools and then run the check again.
