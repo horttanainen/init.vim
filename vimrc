@@ -77,7 +77,14 @@ let g:mapleader = ","
 inoremap jk <esc>
 
 " Open vimrc in a vertical split for quick edit
-nnoremap <leader>ev :vsplit ~/.vim/vimrc<cr>
+if has("win32")
+  nnoremap <leader>ev :vsplit ~/vimfiles/vimrc<cr>
+else
+	if has("unix")
+    nnoremap <leader>ev :vsplit ~/.vim/vimrc<cr>
+  endif
+endif
+
 
 " Source vimrc file wihtout closing vim
 nnoremap <leader>sv :source $MYVIMRC<cr>
