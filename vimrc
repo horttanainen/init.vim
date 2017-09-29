@@ -14,6 +14,13 @@ set so=999
 set number
 set rnu
 
+:set wrap
+:set linebreak
+:set nolist  " list disables linebreak
+
+:set textwidth=0
+:set wrapmargin=0
+
 " Automatic stuff ==============================================================
 
 " Show absolute line numbers when vim is not focused
@@ -49,10 +56,11 @@ filetype plugin indent on
 set encoding=utf8
 
 set t_Co=256
+colorscheme molokai
 
 set incsearch
 
-" Menus =======================================================
+" Menus ========================================================================
 
 set completeopt=menuone,menu,longest
 
@@ -61,6 +69,16 @@ set wildmode=longest,list,full
 set wildmenu
 
 set cmdheight=1
+
+" Gui ==========================================================================
+
+:set guioptions-=m  "remove menu bar
+:set guioptions-=T  "remove toolbar
+:set guioptions-=r  "remove right-hand scroll bar
+
+if has('gui_running')
+  set guifont=Source_Code_pro:h14
+endif
 
 " Backup and saving ============================================================
 
@@ -111,7 +129,7 @@ inoremap <down> <nop>
 inoremap <left> <nop> 
 inoremap <right> <nop> 
 
-" Nerd Tree =================================================================
+" Nerd Tree ====================================================================
 
 let g:NERDTreeWinPos = "right"
 let NERDTreeShowHidden=0
@@ -140,14 +158,14 @@ let g:syntastic_tex_checkers = ['chktex']
 let g:haskellmode_completion_ghc = 1
 autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
-" ghcmod-vim =====================================================
+" ghcmod-vim ===================================================================
 
 map <silent> tw :GhcModTypeInsert<CR>
 map <silent> ts :GhcModSplitFunCase<CR>
 map <silent> tq :GhcModType<CR>
 map <silent> te :GhcModTypeClear<CR>
 
-" latex ============================================
+" latex ========================================================================
 
 let g:vimtex_view_general_viewer = 'SumatraPDF'
 let g:vimtex_view_general_options
