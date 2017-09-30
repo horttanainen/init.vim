@@ -17,9 +17,12 @@ set rnu
 :set wrap
 :set linebreak
 :set nolist  " list disables linebreak
-
 :set textwidth=0
 :set wrapmargin=0
+
+" Configure backspace so it acts as it should act
+set backspace=eol,start,indent
+set whichwrap+=<,>,h,l
 
 " Automatic stuff ==============================================================
 
