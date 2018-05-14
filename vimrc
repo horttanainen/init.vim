@@ -58,8 +58,11 @@ filetype plugin indent on
 
 set encoding=utf8
 
-set t_Co=256
-colorscheme molokai
+"set t_Co=256
+
+set background=dark
+colorscheme solarized
+" colorscheme molokai
 
 set incsearch
 
