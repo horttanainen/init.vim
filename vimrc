@@ -132,6 +132,16 @@ inoremap <down> <nop>
 inoremap <left> <nop> 
 inoremap <right> <nop> 
 
+" Gundo ========================================================================
+
+" toggle gundo
+nnoremap <leader>u :GundoToggle<CR>
+
+" Ag ===========================================================================
+
+" open ag.vim
+nnoremap <leader>a :Ag
+
 " Nerd Tree ====================================================================
 
 let g:NERDTreeWinPos = "right"
