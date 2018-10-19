@@ -8,9 +8,6 @@ set colorcolumn=81
 " How many lines vim remembers
 set history=1000
 
-" Keep cursor line in the middle of the screen when scrolling
-set so=999
-
 set number
 set rnu
 
