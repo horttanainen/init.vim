@@ -168,8 +168,12 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 let g:syntastic_haskell_checkers = ['hdevtools', 'hlint']
+
 let g:tex_flavor = 'latex'
 let g:syntastic_tex_checkers = ['chktex']
+
+let g:tsuquyomi_disable_quickfix = 1
+let g:syntastic_typescript_checkers = ['tsuquyomi']
 
 " Supertab =====================================================================
 
