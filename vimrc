@@ -123,6 +123,11 @@ map <C-l> <C-W>l
 map <leader>tn :tabnew<cr>
 map <leader>tc :tabclose<cr>
 
+" Real delete
+nnoremap <leader>d "_d
+xnoremap <leader>d "_d
+xnoremap <leader>p "_dP
+
 " Unlearning section ===========================================================
 
 inoremap <esc> <nop>
