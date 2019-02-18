@@ -175,6 +175,11 @@ let g:syntastic_tex_checkers = ['chktex']
 let g:tsuquyomi_disable_quickfix = 1
 let g:syntastic_typescript_checkers = ['tsuquyomi']
 
+" Disable loading of javac when opening java files since syntasic won't work
+" with java in any case. This is a hack that fools syntastic that javac is
+" already loaded.
+let g:loaded_syntastic_java_javac_checker = 1
+
 " Supertab =====================================================================
 
 let g:haskellmode_completion_ghc = 1
