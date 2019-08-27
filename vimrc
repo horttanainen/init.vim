@@ -134,13 +134,6 @@ xnoremap <leader>p "_dP
 
 " Unlearning section ===========================================================
 
-inoremap <esc> <nop>
-
-inoremap <up> <nop> 
-inoremap <down> <nop> 
-inoremap <left> <nop> 
-inoremap <right> <nop> 
-
 " Gundo ========================================================================
 
 " toggle gundo
@@ -160,42 +153,6 @@ map <leader>nn :NERDTreeToggle<cr>
 map <leader>nb :NERDTreeFromBookmark<Space>
 map <leader>nf :NERDTreeFind<cr>
 
-" Syntastic ====================================================================
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 1
-
-let g:syntastic_haskell_checkers = ['hdevtools', 'hlint']
-
-let g:tex_flavor = 'latex'
-let g:syntastic_tex_checkers = ['chktex']
-
-let g:tsuquyomi_disable_quickfix = 1
-let g:syntastic_typescript_checkers = ['tsuquyomi']
-
-" Disable loading of javac when opening java files since syntasic won't work
-" with java in any case. This is a hack that fools syntastic that javac is
-" already loaded.
-let g:loaded_syntastic_java_javac_checker = 1
-
-" Supertab =====================================================================
-
-let g:haskellmode_completion_ghc = 1
-autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-
-" ghcmod-vim ===================================================================
-
-map <silent> tw :GhcModTypeInsert<CR>
-map <silent> ts :GhcModSplitFunCase<CR>
-map <silent> tq :GhcModType<CR>
-map <silent> te :GhcModTypeClear<CR>
-
 " latex ========================================================================
 
 let g:vimtex_view_general_viewer = 'SumatraPDF'
@@ -203,3 +160,11 @@ let g:vimtex_view_general_options
   \ = '-reuse-instance -forward-search @tex @line @pdf'
 let g:vimtex_view_general_options_latexmk = '-reuse-instance'
 
+" ale ==========================================================================
+"
+" Enable completion where available.
+" This setting must be set before ALE is loaded.
+"
+" You should not turn this setting on if you wish to use ALE as a completion
+" source for other completion plugins, like Deoplete.
+let g:ale_completion_enabled = 1
