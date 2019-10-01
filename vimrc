@@ -6,12 +6,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'ervandew/supertab'
 Plug 'leafgarland/typescript-vim'
 
-Plug 'Shougo/deoplete.nvim'
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
-Plug 'deoplete-plugins/deoplete-jedi'
-let g:deoplete#enable_at_startup = 1
-
 " Initialize plugin system
 call plug#end()
 
@@ -185,6 +179,8 @@ let g:vimtex_view_general_options_latexmk = '-reuse-instance'
 " You should not turn this setting on if you wish to use ALE as a completion
 " source for other completion plugins, like Deoplete.
 let g:ale_completion_enabled = 1
+
+let g:ale_linters = {'python': ['flake8', 'mypy', 'pylint', 'pyls']}
 
 set omnifunc=ale#completion#OmniFunc
 
