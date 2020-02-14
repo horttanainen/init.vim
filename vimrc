@@ -1,10 +1,13 @@
 call plug#begin('~/.vim/plugs')
 
-Plug 'rking/ag.vim'
 Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'ervandew/supertab'
 Plug 'leafgarland/typescript-vim'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'benmills/vimux'
+Plug 'junegunn/fzf', { 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -53,7 +56,6 @@ au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
 " Code style ===================================================================
 set autoindent
 set smartindent
-set smartcase
 set smarttab
 
 set expandtab
@@ -77,6 +79,10 @@ colorscheme solarized
 " colorscheme molokai
 
 set incsearch
+set ignorecase
+set smartcase
+
+autocmd BufNewFile,BufRead *.fs setfiletype gforth
 
 " Menus ========================================================================
 
@@ -138,6 +144,11 @@ map <C-l> <C-W>l
 map <leader>tn :tabnew<cr>
 map <leader>tc :tabclose<cr>
 
+" Splits
+
+" Generate new vertical split
+nnoremap <silent> vv <C-w>v
+
 " Real delete
 nnoremap <leader>d "_d
 xnoremap <leader>d "_d
@@ -149,11 +160,6 @@ xnoremap <leader>p "_dP
 
 " toggle gundo
 nnoremap <leader>u :GundoToggle<CR>
-
-" Ag ===========================================================================
-
-" open ag.vim
-nnoremap <leader>a :Ag
 
 " Nerd Tree ====================================================================
 
@@ -185,3 +191,25 @@ let g:ale_linters = {'python': ['flake8', 'mypy', 'pylint', 'pyls']}
 
 set omnifunc=ale#completion#OmniFunc
 
+map <Leader>cc :ALEGoToDefinition
+map <Leader>cv :ALEGoToDefinitionInVSplit
+map <Leader>ch :ALEGoToDefinitionInSplit
+
+" vimux ========================================================================
+
+" Prompt for a command to run
+map <Leader>vp :VimuxPromptCommand<CR>
+
+" Run last command executed by VimuxRunCommand
+map <Leader>vl :VimuxRunLastCommand<CR>
+
+" Inspect runner pane
+map <Leader>vi :VimuxInspectRunner<CR>
+
+" Zoom the tmux runner pane
+map <Leader>vz :VimuxZoomRunner<CR>
+
+" FZF ==========================================================================
+
+map <C-p> :FZF<CR>
+map <Leader>a :Rg
