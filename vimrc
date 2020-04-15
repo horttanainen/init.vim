@@ -28,6 +28,7 @@ set history=1000
 
 set number
 set rnu
+set ruler
 
 :set wrap
 :set linebreak
@@ -191,9 +192,9 @@ let g:ale_linters = {'python': ['flake8', 'mypy', 'pylint', 'pyls']}
 
 set omnifunc=ale#completion#OmniFunc
 
-map <Leader>cc :ALEGoToDefinition
-map <Leader>cv :ALEGoToDefinitionInVSplit
-map <Leader>ch :ALEGoToDefinitionInSplit
+map <Leader>cc :ALEGoToDefinition<CR>
+map <Leader>cv :ALEGoToDefinitionInVSplit<CR>
+map <Leader>ch :ALEGoToDefinitionInSplit<CR>
 
 " vimux ========================================================================
 
@@ -209,7 +210,9 @@ map <Leader>vi :VimuxInspectRunner<CR>
 " Zoom the tmux runner pane
 map <Leader>vz :VimuxZoomRunner<CR>
 
+let g:VimuxResetSequence = ""
+
 " FZF ==========================================================================
 
 map <C-p> :FZF<CR>
-map <Leader>a :Rg
+map <Leader>a :Rg<CR>
