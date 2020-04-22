@@ -84,6 +84,7 @@ set ignorecase
 set smartcase
 
 autocmd BufNewFile,BufRead *.fs setfiletype gforth
+autocmd BufNewFile,BufRead *.red setfiletype red
 
 " Menus ========================================================================
 
