@@ -1,5 +1,6 @@
 call plug#begin('~/.vim/plugs')
 
+Plug 'dense-analysis/ale'
 Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'ervandew/supertab'
@@ -188,7 +189,9 @@ let g:vimtex_view_general_options_latexmk = '-reuse-instance'
 " source for other completion plugins, like Deoplete.
 let g:ale_completion_enabled = 1
 let g:ale_completion_delay = 500
+set completeopt=menu,menuone,preview,noselect,noinsert
 
+" let g:ale_linter_aliases = {'typescriptreact': 'typescript'}
 let g:ale_linters = {'python': ['flake8', 'mypy', 'pylint', 'pyls']}
 
 set omnifunc=ale#completion#OmniFunc
