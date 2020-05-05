@@ -9,6 +9,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'benmills/vimux'
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
+Plug 'lifepillar/vim-solarized8'
 
 " Initialize plugin system
 call plug#end()
@@ -74,11 +75,13 @@ filetype plugin indent on
 
 set encoding=utf8
 
-"set t_Co=256
+" set Vim-specific sequences for RGB colors
+set termguicolors
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 set background=dark
-colorscheme solarized
-" colorscheme molokai
+colorscheme solarized8_low
 
 set incsearch
 set ignorecase
@@ -188,7 +191,7 @@ let g:vimtex_view_general_options_latexmk = '-reuse-instance'
 " You should not turn this setting on if you wish to use ALE as a completion
 " source for other completion plugins, like Deoplete.
 let g:ale_completion_enabled = 1
-let g:ale_completion_delay = 500
+" let g:ale_completion_delay = 500
 set completeopt=menu,menuone,preview,noselect,noinsert
 
 " let g:ale_linter_aliases = {'typescriptreact': 'typescript'}
