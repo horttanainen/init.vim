@@ -80,8 +80,8 @@ set termguicolors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
-set background=dark
-colorscheme solarized8_low
+set background=light
+colorscheme solarized8
 
 set incsearch
 set ignorecase
@@ -200,8 +200,8 @@ let g:ale_linters = {'python': ['flake8', 'mypy', 'pylint', 'pyls']}
 set omnifunc=ale#completion#OmniFunc
 
 map <Leader>cc :ALEGoToDefinition<CR>
-map <Leader>cv :ALEGoToDefinitionInVSplit<CR>
-map <Leader>ch :ALEGoToDefinitionInSplit<CR>
+map <Leader>cv :ALEGoToDefinition -vsplit<CR>
+map <Leader>ch :ALEGoToDefinition -split<CR>
 
 " vimux ========================================================================
 
@@ -221,5 +221,9 @@ let g:VimuxResetSequence = ""
 
 " FZF ==========================================================================
 
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
+
 map <C-p> :FZF<CR>
-map <Leader>a :Rg<CR>
+map <Leader>a :Rg 
+map <Leader>gc :Commits<CR>
+
