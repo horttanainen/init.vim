@@ -10,6 +10,9 @@ Plug 'benmills/vimux'
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'lifepillar/vim-solarized8'
+Plug 'tpope/vim-fireplace'
+Plug 'tpope/vim-commentary'
+Plug 'AndrewRadev/linediff.vim'
 
 " Initialize plugin system
 call plug#end()
