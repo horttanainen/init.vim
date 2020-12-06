@@ -13,7 +13,8 @@ Plug 'lifepillar/vim-solarized8'
 Plug 'tpope/vim-fireplace'
 Plug 'tpope/vim-commentary'
 Plug 'AndrewRadev/linediff.vim'
-
+Plug 'tpope/vim-unimpaired'
+Plug 'OmniSharp/omnisharp-vim'
 " Initialize plugin system
 call plug#end()
 
@@ -135,7 +136,6 @@ else
     nnoremap <leader>ev :vsplit ~/.vim/vimrc<cr>
   endif
 endif
-
 
 " Source vimrc file wihtout closing vim
 nnoremap <leader>sv :source $MYVIMRC<cr>
