@@ -1,7 +1,5 @@
 call plug#begin('~/.vim/plugs')
 
-Plug 'dense-analysis/ale'
-Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'ervandew/supertab'
 Plug 'leafgarland/typescript-vim'
@@ -15,6 +13,8 @@ Plug 'tpope/vim-commentary'
 Plug 'AndrewRadev/linediff.vim'
 Plug 'tpope/vim-unimpaired'
 Plug 'OmniSharp/omnisharp-vim'
+Plug 'dense-analysis/ale'
+Plug 'jamessan/vim-gnupg'
 " Initialize plugin system
 call plug#end()
 
@@ -73,6 +73,7 @@ set shiftround
 
 " Syntax, color and highligthing ===============================================
 
+
 syntax on 
 
 filetype plugin indent on
@@ -95,8 +96,6 @@ autocmd BufNewFile,BufRead *.fs setfiletype gforth
 autocmd BufNewFile,BufRead *.red setfiletype red
 
 " Menus ========================================================================
-
-set completeopt=menuone,menu,longest
 
 set wildignore+=.git
 set wildmode=longest,list,full
@@ -165,11 +164,6 @@ xnoremap <leader>p "_dP
 
 " Unlearning section ===========================================================
 
-" Gundo ========================================================================
-
-" toggle gundo
-nnoremap <leader>u :GundoToggle<CR>
-
 " Nerd Tree ====================================================================
 
 let g:NERDTreeWinPos = "right"
@@ -186,6 +180,24 @@ let g:vimtex_view_general_options
   \ = '-reuse-instance -forward-search @tex @line @pdf'
 let g:vimtex_view_general_options_latexmk = '-reuse-instance'
 
+" OmniSharp ==============================================
+let g:OmniSharp_server_use_mono = 1
+let g:OmniSharp_server_stdio = 1
+
+let g:OmniSharp_selector_ui = 'fzf'
+let g:OmniSharp_selector_findusages = 'fzf'
+
+augroup omnisharp_commands
+  autocmd!
+
+   " Show type information automatically when the cursor stops moving.
+  " Note that the type is echoed to the Vim command line, and will overwrite
+  " any other messages in this space including e.g. ALE linting messages.
+  autocmd CursorHold *.cs OmniSharpTypeLookup
+
+  autocmd FileType cs nmap <silent> <buffer> <Leader>osd <Plug>(omnisharp_documentation)
+augroup END
+
 " ale ==========================================================================
 "
 " Enable completion where available.
@@ -198,9 +210,9 @@ let g:ale_completion_enabled = 1
 set completeopt=menu,menuone,preview,noselect,noinsert
 
 " let g:ale_linter_aliases = {'typescriptreact': 'typescript'}
-let g:ale_linters = {'python': ['flake8', 'mypy', 'pylint', 'pyls']}
+let g:ale_linters = { 'cs': ['OmniSharp'], 'python': ['flake8', 'mypy', 'pylint', 'pyls'] }
 
-set omnifunc=ale#completion#OmniFunc
+" set omnifunc=ale#completion#OmniFunc
 
 map <Leader>cc :ALEGoToDefinition<CR>
 map <Leader>cv :ALEGoToDefinition -vsplit<CR>
@@ -230,3 +242,16 @@ map <C-p> :FZF<CR>
 map <Leader>a :Rg 
 map <Leader>gc :Commits<CR>
 
+" supertab =====================================================================
+
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabContextDefaultCompletionType = "<c-p>"
+let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
+let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
+let g:SuperTabContextDiscoverDiscovery =
+        \ ["&omnifunc:<c-x><c-o>", "&completefunc:<c-x><c-u>" ]
+autocmd FileType *
+  \ if &omnifunc != '' |
+  \   call SuperTabChain(&omnifunc, "<c-p>") |
+  \   call SuperTabSetDefaultCompletionType("<c-x><c-u>") |
+  \ endif
