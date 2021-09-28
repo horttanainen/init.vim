@@ -15,6 +15,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'OmniSharp/omnisharp-vim'
 Plug 'dense-analysis/ale'
 Plug 'jamessan/vim-gnupg'
+Plug 'rhysd/vim-clang-format'
 " Initialize plugin system
 call plug#end()
 
@@ -71,8 +72,15 @@ set tabstop=2
 
 set shiftround
 
-" Syntax, color and highligthing ===============================================
+" custom commands =======================
 
+function TmpFunc(filename)
+  execute ':e ' . system('mktemp /tmp/' . a:filename . '.XXXX')
+endfunction
+
+command! -nargs=1 Tmp call TmpFunc(<f-args>)
+
+" Syntax, color and highligthing ===============================================
 
 syntax on 
 
@@ -136,6 +144,8 @@ else
   endif
 endif
 
+nnoremap <leader>es :vsplit ~/.bash_profile<cr>
+
 " Source vimrc file wihtout closing vim
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
@@ -161,6 +171,12 @@ nnoremap <silent> vv <C-w>v
 nnoremap <leader>d "_d
 xnoremap <leader>d "_d
 xnoremap <leader>p "_dP
+
+" For local replace
+nnoremap gr gd[{V%::s///gc<left><left><left>
+
+" For global replace
+nnoremap gR gD:%s///gc<left><left><left>
 
 " Unlearning section ===========================================================
 
@@ -195,7 +211,8 @@ augroup omnisharp_commands
   " any other messages in this space including e.g. ALE linting messages.
   autocmd CursorHold *.cs OmniSharpTypeLookup
 
-  autocmd FileType cs nmap <silent> <buffer> <Leader>osd <Plug>(omnisharp_documentation)
+  autocmd FileType cs nmap <silent> <buffer> <Leader>cd <Plug>(omnisharp_documentation)
+  autocmd FileType cs nmap <silent> <buffer> <Leader>cc <Plug>(omnisharp_go_to_definition)
 augroup END
 
 " ale ==========================================================================
@@ -212,11 +229,16 @@ set completeopt=menu,menuone,preview,noselect,noinsert
 " let g:ale_linter_aliases = {'typescriptreact': 'typescript'}
 let g:ale_linters = { 'cs': ['OmniSharp'], 'python': ['flake8', 'mypy', 'pylint', 'pyls'] }
 
+let g:ale_fixers = ['prettier', 'eslint']
+
 " set omnifunc=ale#completion#OmniFunc
 
 map <Leader>cc :ALEGoToDefinition<CR>
 map <Leader>cv :ALEGoToDefinition -vsplit<CR>
 map <Leader>ch :ALEGoToDefinition -split<CR>
+map <Leader>cr :ALEFindReferences<CR>
+
+
 
 " vimux ========================================================================
 
@@ -238,20 +260,24 @@ let g:VimuxResetSequence = ""
 
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 
+" Zg is like Rg but searches hidden files
+command!      -bang -nargs=* Zg                        call fzf#vim#grep("rg --column --line-number --hidden --no-heading --color=always --smart-case -- ".shellescape(<q-args>), 1, fzf#vim#with_preview(), <bang>0)
+
 map <C-p> :FZF<CR>
-map <Leader>a :Rg 
+map <Leader>a :Zg 
 map <Leader>gc :Commits<CR>
+map <Leader>gb :BCommits<CR>
 
 " supertab =====================================================================
 
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabContextDefaultCompletionType = "<c-p>"
-let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
-let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
-let g:SuperTabContextDiscoverDiscovery =
-        \ ["&omnifunc:<c-x><c-o>", "&completefunc:<c-x><c-u>" ]
-autocmd FileType *
-  \ if &omnifunc != '' |
-  \   call SuperTabChain(&omnifunc, "<c-p>") |
-  \   call SuperTabSetDefaultCompletionType("<c-x><c-u>") |
-  \ endif
+"let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
+"let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
+"let g:SuperTabContextDiscoverDiscovery =
+"        \ ["&omnifunc:<c-x><c-o>", "&completefunc:<c-x><c-u>" ]
+"autocmd FileType *
+"  \ if &omnifunc != '' |
+"  \   call SuperTabChain(&omnifunc, "<c-p>") |
+"  \   call SuperTabSetDefaultCompletionType("<c-x><c-u>") |
+"  \ endif
