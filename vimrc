@@ -237,6 +237,8 @@ map <Leader>cc :ALEGoToDefinition<CR>
 map <Leader>cv :ALEGoToDefinition -vsplit<CR>
 map <Leader>ch :ALEGoToDefinition -split<CR>
 map <Leader>cr :ALEFindReferences<CR>
+nmap <silent> <leader>j :ALENext<cr>
+nmap <silent> <leader>k :ALEPrevious<cr>
 
 
 
@@ -260,8 +262,12 @@ let g:VimuxResetSequence = ""
 
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 
+function! RipgrepWithHiddenFilesFunc(search, bang)
+  call fzf#vim#grep("rg --column --line-number --hidden --no-heading --color=always --smart-case -- ".shellescape(a:search), 1, fzf#vim#with_preview(), a:bang)
+endfunction
+
 " Zg is like Rg but searches hidden files
-command!      -bang -nargs=* Zg                        call fzf#vim#grep("rg --column --line-number --hidden --no-heading --color=always --smart-case -- ".shellescape(<q-args>), 1, fzf#vim#with_preview(), <bang>0)
+command!      -bang -nargs=* Zg                       call RipgrepWithHiddenFilesFunc(<q-args>, <bang>0)
 
 map <C-p> :FZF<CR>
 map <Leader>a :Zg 
