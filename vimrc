@@ -16,6 +16,7 @@ Plug 'OmniSharp/omnisharp-vim'
 Plug 'dense-analysis/ale'
 Plug 'jamessan/vim-gnupg'
 Plug 'rhysd/vim-clang-format'
+Plug 'easymotion/vim-easymotion'
 " Initialize plugin system
 call plug#end()
 
