@@ -17,10 +17,10 @@ Plug 'dense-analysis/ale'
 Plug 'jamessan/vim-gnupg'
 Plug 'rhysd/vim-clang-format'
 Plug 'easymotion/vim-easymotion'
-" Initialize plugin system
+Plug 'preservim/nerdtree'
+Plug 'lervag/vimtex'
+" " Initialize plugin system
 call plug#end()
-
-execute pathogen#infect()
 
 " Tabs and stuff
 
