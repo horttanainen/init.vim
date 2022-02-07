@@ -1,9 +1,0 @@
-[submodule "bundle/nerdtree"]
-	path = bundle/nerdtree
-	url = https://github.com/scrooloose/nerdtree.git
-[submodule "bundle/vimproc.vim"]
-	path = bundle/vimproc.vim
-	url = https://github.com/Shougo/vimproc.vim.git
-[submodule "bundle/vimtex"]
-	path = bundle/vimtex
-	url = https://github.com/lervag/vimtex.git
