@@ -230,7 +230,11 @@ set completeopt=menu,menuone,preview,noselect,noinsert
 " let g:ale_linter_aliases = {'typescriptreact': 'typescript'}
 let g:ale_linters = { 'cs': ['OmniSharp'], 'python': ['flake8', 'mypy', 'pylint', 'pyls'] }
 
-let g:ale_fixers = ['prettier', 'eslint']
+let g:ale_fixers = { 
+      \  'javascript': ['prettier', 'eslint'],
+      \  'typescript': ['prettier', 'eslint'],
+      \  'typescriptreact': ['prettier', 'eslint']
+      \}
 
 " set omnifunc=ale#completion#OmniFunc
 
