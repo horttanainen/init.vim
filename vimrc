@@ -90,9 +90,10 @@ filetype plugin indent on
 set encoding=utf8
 
 set background=light
-colorscheme solarized8
 
 let g:solarized_use16=1
+
+colorscheme solarized8
 
 set incsearch
 set ignorecase
@@ -108,16 +109,6 @@ set wildmode=longest,list,full
 set wildmenu
 
 set cmdheight=1
-
-" Gui ==========================================================================
-
-:set guioptions-=m  "remove menu bar
-:set guioptions-=T  "remove toolbar
-:set guioptions-=r  "remove right-hand scroll bar
-
-if has('gui_running')
-  set guifont=Source_Code_pro:h14
-endif
 
 " Backup and saving ============================================================
 
@@ -142,7 +133,7 @@ else
   endif
 endif
 
-nnoremap <leader>es :vsplit ~/.bash_profile<cr>
+nnoremap <leader>es :vsplit ~/.zprofile<cr>
 
 " Source vimrc file wihtout closing vim
 nnoremap <leader>sv :source $MYVIMRC<cr>
