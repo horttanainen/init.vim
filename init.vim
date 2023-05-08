@@ -19,6 +19,7 @@ Plug 'rhysd/vim-clang-format'
 Plug 'easymotion/vim-easymotion'
 Plug 'preservim/nerdtree'
 Plug 'lervag/vimtex'
+Plug 'scalameta/nvim-metals'
 " " Initialize plugin system
 call plug#end()
 
@@ -129,7 +130,7 @@ if has("win32")
   nnoremap <leader>ev :vsplit ~/vimfiles/vimrc<cr>
 else
 	if has("unix")
-    nnoremap <leader>ev :vsplit ~/.vim/vimrc<cr>
+    nnoremap <leader>ev :vsplit ~/.config/nvim/init.vim<cr>
   endif
 endif
 
@@ -215,8 +216,10 @@ let g:ale_completion_enabled = 1
 " let g:ale_completion_delay = 500
 set completeopt=menu,menuone,preview,noselect,noinsert
 
-" let g:ale_linter_aliases = {'typescriptreact': 'typescript'}
-let g:ale_linters = { 'cs': ['OmniSharp'], 'python': ['flake8', 'mypy', 'pylint', 'pyls'] }
+let g:ale_linters = { 
+      \ 'cs': ['OmniSharp'],
+      \ 'python': ['flake8', 'mypy', 'pylint', 'pyls']
+      \}
 
 let g:ale_fixers = { 
       \  'javascript': ['prettier', 'eslint'],
