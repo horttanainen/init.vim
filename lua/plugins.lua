@@ -14,5 +14,23 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
 
   use 'preservim/nerdtree'
+
+  use({
+    "hrsh7th/nvim-cmp",
+    requires = {
+      { "hrsh7th/cmp-nvim-lsp" },
+      {'hrsh7th/cmp-buffer'},
+      {'hrsh7th/cmp-path'},
+      {'hrsh7th/cmp-cmdline'}
+    },
+  })
+
+  use({
+    "scalameta/nvim-metals",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "mfussenegger/nvim-dap",
+    },
+  })
 end)
 
