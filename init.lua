@@ -114,10 +114,22 @@ map("n", "<leader>cf", function()
       vim.lsp.buf.format({ async = true })
 end)
 
+map("n", "<leader>cn", function()
+  vim.diagnostic.goto_next()
+end)
+
+map("n", "<leader>cp", function()
+  vim.diagnostic.goto_prev()
+end)
+
 map("n", "<leader>rn", vim.lsp.buf.rename)
 map("n", "<leader>ca", vim.lsp.buf.code_action)
 map("n", "<leader>cl", vim.lsp.codelens.run)
 map("n", "<leader>sh", vim.lsp.buf.signature_help)
+
+map("n", "<leader>e", function()
+  vim.diagnostic.open_float(0, {scope="line"})
+end)
 
 
 
@@ -135,6 +147,11 @@ env.FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 local cmp = require("cmp")
 
 cmp.setup({
+  snippet = {
+      expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body)
+      end,
+    },
   window = {
     -- completion = cmp.config.window.bordered(),
     -- documentation = cmp.config.window.bordered(),
@@ -148,6 +165,7 @@ cmp.setup({
   }),
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
+    { name = 'vsnip' },
   }, {
     { name = 'buffer' },
   })
