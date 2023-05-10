@@ -2,6 +2,7 @@ local opt = vim.opt
 local api = vim.api
 local cmd = vim.cmd
 local g = vim.g
+local env = vim.env
 local autocmd = api.nvim_create_autocmd
 local augroup = api.nvim_create_augroup
 local map = vim.keymap.set
@@ -95,14 +96,39 @@ map("n", "vv", "<C-w>v")
 map({"n", "v", "o"}, "<leader>nn", ":NERDTreeToggle<cr>")
 map({"n", "v", "o"}, "<leader>nf", ":NERDTreeFind<cr>")
 
+-- fzf -
+
+map({"n", "v", "o"}, "<C-p>", ":FZF<cr>")
+map({"n", "v", "o"}, "<Leader>gc", ":Commits<CR>")
+map({"n", "v", "o"}, "<Leader>gb", ":BCommits<CR>")
+map({"n", "v", "o"}, "<Leader>a", ":Rg ")
+
+-- lsp -
+map("n", "<leader>cd", vim.lsp.buf.definition)
+map("n", "<leader>ct", vim.lsp.buf.type_definition)
+map("n", "<leader>cr", vim.lsp.buf.references)
+map("n", "<leader>ci", vim.lsp.buf.implementation)
+map("n", "<leader>ch", vim.lsp.buf.hover)
+
+map("n", "<leader>cf", function()
+      vim.lsp.buf.format({ async = true })
+end)
+
+map("n", "<leader>rn", vim.lsp.buf.rename)
+map("n", "<leader>ca", vim.lsp.buf.code_action)
+map("n", "<leader>cl", vim.lsp.codelens.run)
+map("n", "<leader>sh", vim.lsp.buf.signature_help)
+
+
+
 -- Nerd Tree -------------------------------------------------------------------
-
-
 
 g.NERDTreeWinPos = "right"
 g.NERDTreeWinSize = 35
 
 -- FZF -------------------------------------------------------------------------
+
+env.FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 
 -- CMD -------------------------------------------------------------------------
 
