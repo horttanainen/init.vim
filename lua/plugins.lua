@@ -14,6 +14,9 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
 
   use 'preservim/nerdtree'
+  
+  use 'neovim/nvim-lspconfig'
+  use 'folke/neodev.nvim'
 
   use({
     "hrsh7th/nvim-cmp",

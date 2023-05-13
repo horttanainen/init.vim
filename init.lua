@@ -198,13 +198,22 @@ cmp.setup.cmdline(':', {
   })
 })
 
--- Set up lspconfig.
--- local capabilities = require('cmp_nvim_lsp').default_capabilities()
+-- Set up neodev
+require("neodev").setup({
+  -- add any options here, or leave empty to use the default settings
+})
 
--- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
--- require('lspconfig')['<YOUR_LSP_SERVER>'].setup {
---   capabilities = capabilities
--- }
+-- LSP -------------------------------------------------------------------------
+
+local lspconfig = require('lspconfig')
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+lspconfig.tsserver.setup {
+  capabilities = capabilities
+}
+lspconfig.rust_analyzer.setup {
+  capabilities = capabilities
+}
 
 -- metals ----------------------------------------------------------------------
 
@@ -212,7 +221,7 @@ local metals_config = require("metals").bare_config()
 
 metals_config.init_options.statusBarProvider = "on"
 
-metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
+metals_config.capabilities = capabilities 
 
 local nvim_metals_group = api.nvim_create_augroup("nvim-metals", { clear = true })
 api.nvim_create_autocmd("FileType", {
