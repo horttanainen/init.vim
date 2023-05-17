@@ -38,6 +38,15 @@ autocmd("InsertLeave", {
   group = rnu_group
 })
 
+autocmd("BufReadPost", {
+    pattern = "*",
+    callback = function()
+        if vim.fn.line("'\"") > 0 and vim.fn.line("'\"") <= vim.fn.line("$") then
+            api.nvim_exec("normal! g'\"",false)
+        end
+    end
+})
+
 -- Indentation and tabs --------------------------------------------------------
 
 opt.smartindent = true
