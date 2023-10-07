@@ -60,9 +60,7 @@ vim.opt_local.formatoptions:remove({ 'r', 'o' })
 
 -- Syntax, color, and hightlighting --------------------------------------------
 
-cmd.colorscheme("solarized8")
-opt.background = "light"
-g.solarized_use16 = 1
+cmd.colorscheme("tender")
 
 opt.ignorecase = true
 opt.smartcase = true

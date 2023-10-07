@@ -1,4 +1,6 @@
 return require('packer').startup(function(use)
+  use 'jacoborus/tender.vim'
+
   use 'tpope/vim-fugitive'
   use 'tpope/vim-commentary'
  
@@ -6,8 +8,6 @@ return require('packer').startup(function(use)
     'junegunn/fzf.vim',
     requires = { 'junegunn/fzf', run = ':call fzf#install()' }
   }
-
-  use 'lifepillar/vim-solarized8'
 
   use 'jamessan/vim-gnupg'
   
