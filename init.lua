@@ -221,8 +221,10 @@ lspconfig.tsserver.setup {
 lspconfig.rust_analyzer.setup {
   capabilities = capabilities
 }
-lspconfig.sourcekit.setup {
-  capabilities = capabilities
+-- lspconfig.sourcekit.setup {
+--   capabilities = capabilities
+-- }
+lspconfig.zls.setup {
 }
 
 -- metals ----------------------------------------------------------------------
