@@ -232,6 +232,10 @@ lspconfig.rust_analyzer.setup {
 --   capabilities = capabilities
 -- }
 lspconfig.zls.setup {
+  capabilities = capabilities
+}
+lspconfig.kotlin_language_server.setup {
+  capabilities = capabilities
 }
 
 -- metals ----------------------------------------------------------------------
