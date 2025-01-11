@@ -56,7 +56,7 @@ opt.shiftwidth = 2
 
 opt.shiftround = true
 
-vim.opt_local.formatoptions:remove({ 'r', 'o' })
+vim.opt.formatoptions:remove({ 'r', 'o' })
 
 -- Syntax, color, and hightlighting --------------------------------------------
 
