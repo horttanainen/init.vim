@@ -228,13 +228,11 @@ lspconfig.ts_ls.setup {
 lspconfig.rust_analyzer.setup {
   capabilities = capabilities
 }
--- lspconfig.sourcekit.setup {
---   capabilities = capabilities
--- }
 lspconfig.zls.setup {
   capabilities = capabilities
 }
-lspconfig.kotlin_language_server.setup {
+
+lspconfig.bashls.setup {
   capabilities = capabilities
 }
 
