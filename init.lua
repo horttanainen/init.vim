@@ -14,7 +14,6 @@ require("plugins")
 
 opt.statusline = [[%!luaeval('require("status").statusline()')]]
 
-
 -- lines -----------------------------------------------------------------------
 
 opt.colorcolumn = "81"
@@ -70,10 +69,6 @@ opt.smartcase = true
 opt.backup = false
 opt.writebackup = false
 opt.swapfile = false
-
--- completion ------------------------------------------------------------------
-
--- global_opt.completeopt = { "menu", "menuone", "preview", "noinsert", "noselect" }
 
 -- mappings --------------------------------------------------------------------
 
@@ -156,7 +151,7 @@ command! -bang -nargs=* Rg
   \   fzf#vim#with_preview(), <bang>0)
 ]])
 
--- CMD -------------------------------------------------------------------------
+-- CMP -------------------------------------------------------------------------
 
 local cmp = require("cmp")
 
@@ -212,83 +207,86 @@ cmp.setup.cmdline(':', {
   })
 })
 
--- Set up neodev
-require("neodev").setup({
-  -- add any options here, or leave empty to use the default settings
-})
-
 -- LSP -------------------------------------------------------------------------
 
-local lspconfig = require('lspconfig')
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
+vim.lsp.enable('ts_ls')
+vim.lsp.enable('zls')
+vim.lsp.enable('bashls')
 
-lspconfig.ts_ls.setup {
-  capabilities = capabilities
+vim.lsp.enable('lsp_ai')
+
+local lsp_ai_init_options_json = [[
+{
+  "memory": {
+    "file_store": {}
+  },
+  "models": {
+    "model1": {
+        "type": "open_ai",
+        "chat_endpoint": "https://api.openai.com/v1/chat/completions",
+        "completions_endpoint": "https://api.openai.com/v1/completions",
+        "model": "gpt-4o",
+        "auth_token_env_var_name": "OPENAI_API_KEY"
+    }
+  },
+  "chat": [
+    {
+      "trigger": "!C",
+      "action_display_name": "Chat",
+      "model": "model1",
+      "parameters": {
+        "max_context": 4096,
+        "max_tokens": 1024,
+        "messages": [
+          {
+            "role": "system",
+            "content": "You are a code assistant chatbot. The user will ask you for assistance coding and you will do you best to answer succinctly and accurately"
+          }
+        ]
+      }
+    }
+  ],
+  "actions": [
+    {
+      "action_display_name": "Refactor",
+      "model": "model1",
+      "parameters": {
+        "max_context": 4096,
+        "max_tokens": 4096,
+        "messages": [
+          {
+            "role": "system",
+            "content": "You are an AI coding assistant specializing in code refactoring. Your task is to analyze the given code snippet and provide a refactored version. Follow these steps:\n\n1. Analyze the code context and structure.\n2. Identify areas for improvement, such as code efficiency, readability, or adherence to best practices.\n3. Provide your chain of thought reasoning as comments in the code. Include your analysis of the current code and explain your refactoring decisions.\n4. Rewrite the entire code snippet with your refactoring applied.\n5. Wrap your refactored code solution in <answer> tags.\n6. it is really important that you wrap your refactored code solution in opening <answer> and closing </answer> tags.\n7. Do not wrap code in anything else than the <answer> tags. \n\nYour response should always include both the reasoning and the refactored code.\n8. Everything inside <answer> tags should be real working code and not markdow.\n9. Use await to execute queries in place instead of trying to run queries in a batch.\n10. Inline sql queries instead of reusing the query variable.\n11. Avoid using t.batch pattern that might have been used in the code.\n\n"
+          },
+          {
+            "role": "user",
+            "content": "{SELECTED_TEXT}"
+          }
+        ]
+      }, 
+      "post_process": {
+        "extractor": "(?s)<answer>(.*?)</answer>"
+      }
+    }
+  ]
 }
-lspconfig.rust_analyzer.setup {
-  capabilities = capabilities
-}
-lspconfig.zls.setup {
-  capabilities = capabilities
-}
+]]
 
-lspconfig.bashls.setup {
-  capabilities = capabilities
+local lsp_ai_config = {
+  cmd = { 'lsp-ai' },
+  root_dir = vim.loop.cwd(),
+  init_options = vim.fn.json_decode(lsp_ai_init_options_json),
 }
 
--- metals ----------------------------------------------------------------------
-
-local metals_config = require("metals").bare_config()
-
-metals_config.init_options.statusBarProvider = "on"
-
-metals_config.capabilities = capabilities 
-
-local nvim_metals_group = api.nvim_create_augroup("nvim-metals", { clear = true })
-api.nvim_create_autocmd("FileType", {
-  pattern = { "scala", "sbt", "java" },
-  callback = function()
-    require("metals").initialize_or_attach(metals_config)
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = function(args)
+    local bufnr = args.buf
+    local client = vim.lsp.get_clients({bufnr = bufnr, name = "lsp-ai"})
+    if #client == 0 then
+      vim.lsp.start(lsp_ai_config, {bufnr = bufnr})
+    end
   end,
-  group = nvim_metals_group,
 })
 
--- Dap -------------------------------------------------------------------------
-
-local dap = require("dap")
-
-dap.configurations.scala = {
-  {
-    type = "scala",
-    request = "launch",
-    name = "Run or test with input",
-    metals = {
-      runType = "runOrTestFile",
-      args = function()
-        local args_string = vim.fn.input("Arguments: ")
-        return vim.split(args_string, " +")
-      end,
-    },
-  },
-  {
-    type = "scala",
-    request = "launch",
-    name = "Run or Test",
-    metals = {
-      runType = "runOrTestFile",
-    },
-  },
-  {
-    type = "scala",
-    request = "launch",
-    name = "Test Target",
-    metals = {
-      runType = "testTarget",
-    },
-  },
-}
-
-metals_config.on_attach = function(client, bufnr)
-  require("metals").setup_dap()
-end
+map({'n', 'v'}, '<leader>c', '<cmd>lua vim.lsp.buf.code_action()<CR>', {noremap = true, silent = true})
 
