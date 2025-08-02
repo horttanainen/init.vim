@@ -201,24 +201,3 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
 map({'n', 'v'}, '<leader>c', '<cmd>lua vim.lsp.buf.code_action()<CR>', {noremap = true, silent = true})
 
--- Dap -------------------------------------------------------------------------
-
-local dap = require("dap")
-
-dap.adapters.lldb = {
-  type = 'executable',
-  command = '/usr/local/opt/llvm/bin/lldb-dap',
-  name = 'lldb'
-}
-
-dap.configurations.zig = {
-  {
-    name = 'Launch',
-    type = 'lldb',
-    request = 'launch',
-    program = '${workspaceFolder}/zig-out/bin/multi',
-    cwd = '${workspaceFolder}',
-    stopOnEntry = false,
-    args = {},
-  },
-}
