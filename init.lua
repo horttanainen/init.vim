@@ -201,3 +201,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
 map({'n', 'v'}, '<leader>c', '<cmd>lua vim.lsp.buf.code_action()<CR>', {noremap = true, silent = true})
 
+-- plugins -------------------------------------------------------------------------
+
+require("config.lazy")
