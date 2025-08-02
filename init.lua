@@ -8,8 +8,6 @@ local augroup = api.nvim_create_augroup
 local map = vim.keymap.set
 local global_opt = vim.opt_global
 
-require("plugins")
-
 -- status -----------------------
 
 opt.statusline = [[%!luaeval('require("status").statusline()')]]
@@ -59,8 +57,6 @@ vim.opt.formatoptions:remove({ 'r', 'o' })
 
 -- Syntax, color, and hightlighting --------------------------------------------
 
-cmd.colorscheme("tender")
-
 opt.ignorecase = true
 opt.smartcase = true
 
@@ -94,17 +90,6 @@ map({"n", "v", "o"}, "<leader>tc", ":tabclose<cr>")
 -- open split
 map("n", "vv", "<C-w>v")
 
--- nerd tree
-map({"n", "v", "o"}, "<leader>nn", ":NERDTreeToggle<cr>")
-map({"n", "v", "o"}, "<leader>nf", ":NERDTreeFind<cr>")
-
--- fzf -
-
-map({"n", "v", "o"}, "<C-p>", ":FZF<cr>")
-map({"n", "v", "o"}, "<Leader>gc", ":Commits<CR>")
-map({"n", "v", "o"}, "<Leader>gb", ":BCommits<CR>")
-map({"n", "v", "o"}, "<Leader>a", ":Rg ")
-
 -- lsp -
 map("n", "<leader>cd", vim.lsp.buf.definition)
 map("n", "<leader>ct", vim.lsp.buf.type_definition)
@@ -133,23 +118,6 @@ map("n", "<leader>e", function()
   vim.diagnostic.open_float(0, {scope="line"})
 end)
 
-
-
--- Nerd Tree -------------------------------------------------------------------
-
-g.NERDTreeWinPos = "right"
-g.NERDTreeWinSize = 35
-
--- FZF -------------------------------------------------------------------------
-
-env.FZF_DEFAULT_COMMAND = 'rg --files --hidden'
-
-vim.cmd([[
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   "rg --hidden --glob '!.git' --column --line-number --no-heading --color=always --smart-case -- ".shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview(), <bang>0)
-]])
 
 -- CMP -------------------------------------------------------------------------
 
