@@ -44,9 +44,16 @@ autocmd("BufReadPost", {
     end
 })
 
+autocmd("FileType", {
+    pattern = "*",
+    callback = function()
+        vim.opt.formatoptions:remove({ 'r', 'o' })
+    end
+})
+
 -- Indentation and tabs --------------------------------------------------------
 
-opt.smartindent = true
+-- opt.smartindent = true -- Disabled in favor of treesitter indent
 opt.expandtab = true
 opt.tabstop = 2
 opt.shiftwidth = 2

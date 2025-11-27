@@ -5,7 +5,7 @@ return {
       { "<C-p>", "<cmd>FZF<cr>", mode = {"n", "v", "o"}},
       { "<Leader>gc", "<cmd>Commits<cr>" , mode = {"n", "v", "o"}},
       { "<Leader>gb", "<cmd>BCommits<cr>" , mode = {"n", "v", "o"}},
-      { "<Leader>a", "<cmd>Rg <cr>" , mode = {"n", "v", "o"}},
+      { "<Leader>a", ":Rg " , mode = {"n", "v", "o"}},
     },
     init = function()
       vim.env.FZF_DEFAULT_COMMAND = 'rg --files --hidden'
