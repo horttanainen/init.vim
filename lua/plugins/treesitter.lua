@@ -1,91 +1,36 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "main",
     build = ":TSUpdate",
-    event = { "BufReadPost", "BufNewFile" },
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter-textobjects",
-    },
     config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = {
-          "c",
-          "clojure",
-          "kotlin",
-          "java",
-          "lua",
-          "vimdoc",
-          "typescript",
-          "javascript",
-          "zig",
-          "bash",
-          "html",
-          "css",
-          "json",
-          "markdown",
-        },
-        auto_install = true,
-        highlight = {
-          enable = true,
-        },
-        indent = {
-          enable = true,
-        },
-        incremental_selection = {
-          enable = true,
-          keymaps = {
-            init_selection = "<CR>",
-            node_incremental = "<CR>",
-            node_decremental = "<BS>",
-            scope_incremental = "<TAB>",
-          },
-        },
-        textobjects = {
-          move = {
-            enable = true,
-            set_jumps = true,
-            goto_next_start = {
-              ["]m"] = "@function.outer",
-              ["gj"] = "@function.outer",
-              ["]b"] = "@block.outer",
-              ["]a"] = "@parameter.inner",
-            },
-            goto_next_end = {
-              ["]M"] = "@function.outer",
-              ["gJ"] = "@function.outer",
-              ["]B"] = "@block.outer",
-              ["]A"] = "@parameter.inner",
-            },
-            goto_previous_start = {
-              ["[m"] = "@function.outer",
-              ["gk"] = "@function.outer",
-              ["[b"] = "@block.outer",
-              ["[a"] = "@parameter.inner",
-            },
-            goto_previous_end = {
-              ["[M"] = "@function.outer",
-              ["gK"] = "@function.outer",
-              ["[B"] = "@block.outer",
-              ["[A"] = "@parameter.inner",
-            },
-          },
-          select = {
-            enable = true,
-            lookahead = true,
-            keymaps = {
-              ["af"] = "@function.outer",
-              ["if"] = "@function.inner",
-              ["ab"] = "@block.outer",
-              ["ib"] = "@block.inner",
-              ["al"] = "@loop.outer",
-              ["il"] = "@loop.inner",
-              ["a/"] = "@comment.outer",
-              ["i/"] = "@comment.inner",
-              ["aa"] = "@parameter.outer",
-              ["ia"] = "@parameter.inner",
-            },
-          },
-        },
+      local ts = require("nvim-treesitter")
+
+      -- Install parsers for languages you use
+      ts.install({
+        "c",
+        "clojure",
+        "kotlin",
+        "java",
+        "lua",
+        "vimdoc",
+        "typescript",
+        "javascript",
+        "zig",
+        "bash",
+        "html",
+        "css",
+        "json",
+        "markdown",
+      })
+
+      -- Enable treesitter highlighting and indentation for all filetypes
+      vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup("treesitter", { clear = true }),
+        callback = function(ev)
+          pcall(vim.treesitter.start, ev.buf)
+          vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end,
       })
     end,
   },
