@@ -64,6 +64,7 @@ vim.opt.formatoptions:remove({ 'r', 'o' })
 
 -- Syntax, color, and hightlighting --------------------------------------------
 
+vim.opt.termguicolors = false
 opt.ignorecase = true
 opt.smartcase = true
 
