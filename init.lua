@@ -131,6 +131,8 @@ end)
 vim.lsp.enable('ts_ls')
 vim.lsp.enable('zls')
 vim.lsp.enable('bashls')
+vim.lsp.enable('gopls')
+vim.lsp.enable('pylsp')
 
 map({'n', 'v'}, '<leader>c', '<cmd>lua vim.lsp.buf.code_action()<CR>', {noremap = true, silent = true})
 
