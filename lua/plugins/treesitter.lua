@@ -6,6 +6,8 @@ return {
     config = function()
       local ts = require("nvim-treesitter")
 
+      vim.opt.runtimepath:append(vim.fn.stdpath("data") .. "/lazy/nvim-treesitter/runtime")
+
       -- Install parsers for languages you use
       ts.install({
         "c",
