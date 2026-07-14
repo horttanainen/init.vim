@@ -1,12 +1,12 @@
 return {
   {
-    "nvim-treesitter/nvim-treesitter",
+    "neovim-treesitter/nvim-treesitter",
     branch = "main",
+    dependencies = { "neovim-treesitter/treesitter-parser-registry" },
+    lazy = false,
     build = ":TSUpdate",
     config = function()
       local ts = require("nvim-treesitter")
-
-      vim.opt.runtimepath:append(vim.fn.stdpath("data") .. "/lazy/nvim-treesitter/runtime")
 
       -- Install parsers for languages you use
       ts.install({
@@ -24,9 +24,10 @@ return {
         "css",
         "json",
         "markdown",
+        "markdown_inline",
         "go",
         "python",
-        "swift"
+        "swift",
       })
 
       -- Enable treesitter highlighting and indentation for all filetypes
