@@ -128,7 +128,7 @@ end)
 
 -- LSP -------------------------------------------------------------------------
 
-vim.lsp.enable('ts_ls')
+vim.lsp.enable('tsc')
 vim.lsp.enable('zls')
 vim.lsp.enable('bashls')
 vim.lsp.enable('gopls')
